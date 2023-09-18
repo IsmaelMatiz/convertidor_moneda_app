@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.CoroutineScope
 
@@ -19,7 +20,8 @@ import kotlinx.coroutines.CoroutineScope
 fun standardScreen(
     backgroundPic: Painter,
     iconPic: Painter,
-    tintIconPic: Color
+    tintIconPic: Color,
+    size: Dp
 ){
     Box{
         Image(painter = backgroundPic,
@@ -42,7 +44,7 @@ fun standardScreen(
                 Icon(painter = iconPic,
                     contentDescription = "Screen icon",
                     tint = tintIconPic,
-                    modifier = Modifier.size(220.dp)
+                    modifier = Modifier.size(size)
                 )
             }
             Row(
@@ -60,7 +62,7 @@ fun standardScreen(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MyExposedDropdownMenuBox(title : String,options : List<String>, colorDropDown: Color, op : () -> Unit){
+fun Dropdowns(title : String,options : List<String>, colorDropDown: Color, op : (String) -> Unit){
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(expanded = expanded, onExpandedChange = {expanded = !expanded } )
@@ -88,7 +90,7 @@ fun MyExposedDropdownMenuBox(title : String,options : List<String>, colorDropDow
                 val scaffoldState : ScaffoldState = rememberScaffoldState()
                 val coroutine : CoroutineScope = rememberCoroutineScope()
                 DropdownMenuItem(onClick = {
-                    op()
+                    op(option)
                 }
                 ) {
                     Text(
