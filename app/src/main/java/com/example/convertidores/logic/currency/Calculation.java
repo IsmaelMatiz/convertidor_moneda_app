@@ -1,12 +1,11 @@
 package com.example.convertidores.logic.currency;
 
-import javax.swing.*;
 import java.text.DecimalFormat;
 
 /**
  * This class will take care of doing the conversion based on what the user chosen
  */
-public class Calculation {
+public class  Calculation {
     /**
      * This function takes the value to convert and the way to do it, also invokes the conversion rate
      * from the Class CurApiCall, then does the calculation and use the showConversionResult from MainMenu

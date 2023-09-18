@@ -12,7 +12,13 @@
         android:theme="@style/Theme.Convertidores"
         tools:targetApi="31">
         <activity
-            android:name=".AppActivities.ChoosenBiActivity"
+            android:name=".AppActivities.CurrencyConverter.EnterValueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AppActivities.CurrencyConverter.ChoosenRateConverter"
+            android:exported="false" />
+        <activity
+            android:name=".AppActivities.BinaryConverter.ChoosenBiActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

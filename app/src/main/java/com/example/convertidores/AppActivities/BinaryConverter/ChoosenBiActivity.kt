@@ -1,6 +1,5 @@
-package com.example.convertidores.AppActivities
+package com.example.convertidores.AppActivities.BinaryConverter
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.convertidores.AppActivities.standardScreen
 import com.example.convertidores.R
 import com.example.convertidores.ui.theme.ConvertidoresTheme
 

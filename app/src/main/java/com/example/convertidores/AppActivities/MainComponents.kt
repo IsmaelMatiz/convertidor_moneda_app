@@ -11,8 +11,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.convertidores.AppActivities.CurrencyConverter.ChoosenRateConverter
+import com.example.convertidores.R
 import kotlinx.coroutines.CoroutineScope
 
 //Esta es la version del Screen para mostrar una lista desplegable
@@ -98,6 +101,45 @@ fun Dropdowns(title : String,options : List<String>, colorDropDown: Color, op : 
                     )
                 }
             }
+        }
+    }
+}
+
+@Composable
+fun ActivityEnterValue(converter: String,wayToConvert : String, title: String, colorDropDown: Color){
+    var numToConvert = 0
+    standardScreen(
+        backgroundPic = painterResource(id = R.drawable.backgroundapp),
+        iconPic = painterResource(id = R.drawable.logo_currency),
+        tintIconPic = Color(0xFF00b3b3),
+        size = 220.dp
+    )
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        TextField(
+            value = title,
+            onValueChange = {},
+            //colors = ExposedDropdownMenuDefaults.textFieldColors()
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = colorDropDown.copy(alpha = 0.50f),
+                textColor = colorDropDown,
+                focusedIndicatorColor = colorDropDown,
+                unfocusedIndicatorColor = colorDropDown
+            ),
+            shape = RoundedCornerShape(topStart =  20.dp, topEnd = 20.dp)
+        )
+        Button(onClick = {
+            if (converter.equals("binary")){
+                //execute the binary conversion logic
+            }else{
+                //execute the currency conversion logic
+
+            }
+        }) {
+            Text(text = "Calcular")
         }
     }
 }

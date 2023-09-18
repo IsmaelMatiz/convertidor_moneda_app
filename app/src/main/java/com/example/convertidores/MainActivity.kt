@@ -14,12 +14,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.convertidores.AppActivities.ChoosenBiActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.convertidores.AppActivities.BinaryConverter.ChoosenBiActivity
+import com.example.convertidores.AppActivities.CurrencyConverter.ChoosenRateConverter
 import com.example.convertidores.AppActivities.Dropdowns
 import com.example.convertidores.AppActivities.standardScreen
+import com.example.convertidores.logic.currency.CurAPICall
 import com.example.convertidores.ui.theme.ConvertidoresTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    private val viewModel = CurrencyViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -31,6 +37,15 @@ class MainActivity : ComponentActivity() {
                 ) {
                     EntryActivity()
                 }
+            }
+        }
+    }
+
+    class CurrencyViewModel : ViewModel() {
+        init {
+            viewModelScope.launch {
+                // Perform the network operation
+                CurAPICall.getInstance().setRates()
             }
         }
     }
@@ -64,7 +79,9 @@ fun EntryActivity(){
             colorDropDown = Color(0xFF00b3b3),
             {
                 if(it.equals(converterOptions[0])){
-                    context.startActivity(Intent(context,ChoosenBiActivity::class.java))
+                    context.startActivity(Intent(context, ChoosenBiActivity::class.java))
+                }else{
+                    context.startActivity(Intent(context, ChoosenRateConverter::class.java))
                 }
             })
     }

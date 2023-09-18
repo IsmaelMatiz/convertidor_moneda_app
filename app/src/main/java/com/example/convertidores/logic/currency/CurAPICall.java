@@ -65,35 +65,35 @@ public final class CurAPICall {
         try {
             //send the http request and save the response
             response = client.newCall(request).execute();
+            System.out.println("El codigo es: "+response.code());
         }catch (Exception e){
             System.out.println("Error al llamar la API:  "+e);
         }
+        if (response != null) {
+            try {
+                //try to convert the response to a String
+                jsonData = response.body().string();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
-        System.out.println("El codigo es: "+response.code());
-
-        try {
-            //try to convert the response to a String
-            jsonData = response.body().string();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            //Serialize the Json response
+            Gson gson = new Gson();
+            Rates rates = gson.fromJson(jsonData, Rates.class);
+            /*
+             * set the values
+             * "USD"
+             * "EUR"
+             * "GBP"
+             * "JPY"
+             * "KRW"
+             * */
+            this.dolarRate = Float.parseFloat(rates.data.get("USD").value);
+            this.euroRate = Float.parseFloat(rates.data.get("EUR").value);
+            this.poundRate = Float.parseFloat(rates.data.get("GBP").value);
+            this.yenRate = Float.parseFloat(rates.data.get("JPY").value);
+            this.koreanWonRate = Float.parseFloat(rates.data.get("KRW").value);
         }
-
-        //Serialize the Json response
-        Gson gson = new Gson();
-        Rates rates =  gson.fromJson(jsonData, Rates.class);
-        /*
-         * set the values
-         * "USD"
-         * "EUR"
-         * "GBP"
-         * "JPY"
-         * "KRW"
-         * */
-        this.dolarRate = Float.parseFloat(rates.data.get("USD").value);
-        this.euroRate = Float.parseFloat(rates.data.get("EUR").value);
-        this.poundRate = Float.parseFloat(rates.data.get("GBP").value);
-        this.yenRate =  Float.parseFloat(rates.data.get("JPY").value);
-        this.koreanWonRate = Float.parseFloat(rates.data.get("KRW").value);
     }
     private CurAPICall() {
     }
