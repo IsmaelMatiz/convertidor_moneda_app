@@ -1,5 +1,7 @@
 package com.example.convertidores.logic.currency;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**
@@ -14,7 +16,7 @@ public class  Calculation {
      * @param numToConvert this is the value to be converted like $80 dolars for  example
      * @param wayToConvert which especifies how to convert the value for instance "De Dolar a Pesos"
      */
-    public  static void CalculateConversion(Float numToConvert, String wayToConvert){
+    public  static Float CalculateConversion(Float numToConvert, String wayToConvert){
         Float rate;
         String isoRate;
         Float result;
@@ -35,20 +37,23 @@ public class  Calculation {
             rate = CurAPICall.getInstance().getKoreanWonRate();
             isoRate = "Wones";
         }else{
-           //TODO mostrar un sanckbar del error
-            return;
+            return -3.0f;
         }
         //Now determine the way to convert | should I multiply or divide
 
         DecimalFormat df = new DecimalFormat("#.##");
-        DecimalFormat df2 = new DecimalFormat("#.#####");
+        BigDecimal bd = new BigDecimal(rate).setScale(5, RoundingMode.UP);
 
+        //if the second word its pesos, we are converting from Pesos to another
+        //currency I do a multuplication otherwise divide
         if (wayToConvert.split(" ")[1].equals("Pesos")){
-            result = Float.valueOf(df.format(numToConvert * Float.parseFloat(df2.format(rate))));
+            result = Float
+                    .valueOf(df.format(numToConvert * Float.parseFloat(String.valueOf(bd))));
         }else{
-            result = Float.parseFloat(df.format(numToConvert / Float.parseFloat(df2.format(rate))));
+            result = Float
+                    .parseFloat(df.format(numToConvert / Float.parseFloat(String.valueOf(bd))));
         }
 
-        //TODO invocar la Activity que muestra el resultado
+        return result;
     }
 }

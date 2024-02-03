@@ -11,24 +11,14 @@ import com.example.convertidores.AppActivities.standardScreen
 import com.example.convertidores.R
 import com.example.convertidores.ui.theme.ConvertidoresTheme
 
-class ChoosenBiActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent{
-            ConvertidoresTheme {
-                chooseBiActivity()
-            }
-        }
-    }
+@Composable
+ fun chooseBiActivity(){
+     standardScreen(backgroundPic = painterResource(id = R.drawable.backgroundapp),
+         iconPic = painterResource(id = R.drawable.logo_binario),
+         tintIconPic =  Color(0xFF00b3b3),
+         size = 420.dp
+     )
+ }
 
-    @Composable
-    fun chooseBiActivity(){
-        standardScreen(backgroundPic = painterResource(id = R.drawable.backgroundapp),
-            iconPic = painterResource(id = R.drawable.logo_binario),
-            tintIconPic =  Color(0xFF00b3b3),
-            size = 420.dp
-        )
-    }
-}
 
 
