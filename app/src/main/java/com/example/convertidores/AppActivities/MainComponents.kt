@@ -23,6 +23,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.text.NumberFormat
+import java.util.Currency
+import java.util.Locale
 
 //Esta es la version del Screen para mostrar una lista desplegable
 @Composable
@@ -163,6 +166,7 @@ fun DropdownsS(title: String,
 fun ActivityEnterValue(converter: String,wayToConvert : String, title: String, colorDropDown: Color){
 
     val context = LocalContext.current
+    val curformat = NumberFormat.getCurrencyInstance(Locale("en","US"))
     var numToConvert by remember {
         mutableStateOf("")
     }
@@ -206,7 +210,8 @@ fun ActivityEnterValue(converter: String,wayToConvert : String, title: String, c
                                 "contacta a soporte",Toast.LENGTH_SHORT).show()
                 else ->
                     Toast.makeText(context
-                        ,"El resultado es: $resultConvertion",Toast.LENGTH_LONG).show()
+                        ,"El resultado es: ${
+                            Calculation.FormatResult(resultConvertion) }",Toast.LENGTH_LONG).show()
             }
 
         }) {

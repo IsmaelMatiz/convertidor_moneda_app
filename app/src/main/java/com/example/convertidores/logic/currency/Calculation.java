@@ -3,6 +3,9 @@ package com.example.convertidores.logic.currency;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Currency;
+import java.util.Locale;
 
 /**
  * This class will take care of doing the conversion based on what the user chosen
@@ -55,5 +58,15 @@ public class  Calculation {
         }
 
         return result;
+    }
+
+    public static String FormatResult(Float amountToBeFormatted){
+        Locale usa = new Locale("en", "US");
+        // Create a Currency instance for the Locale
+        Currency dollars = Currency.getInstance(usa);
+        // Create a formatter given the Locale
+        NumberFormat dollarFormat = NumberFormat.getCurrencyInstance(usa);
+
+        return dollarFormat.format(amountToBeFormatted);
     }
 }
